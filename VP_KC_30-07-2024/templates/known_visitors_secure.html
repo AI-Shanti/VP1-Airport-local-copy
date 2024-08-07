@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Known Visitors in Secure Areas</title>
+    <style>
+        /* CSS styles from your main stylesheet */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .nav {
+            background-color: #3498db;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo img {
+            height: 50px;
+        }
+        .nav-logo p {
+            display: inline;
+            font-size: 1.5rem;
+            color: #fff;
+            margin-left: 10px;
+        }
+        .nav-menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .nav-menu ul li {
+            margin-right: 20px;
+        }
+        .nav-menu ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .nav-button .btn {
+            background-color: #fff;
+            color: #3498db;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .nav-button .btn:hover {
+            background-color: #2980b9;
+            color: #fff;
+        }
+        .nav-menu-btn i {
+            display: none;
+        }
+        .form-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 60px);
+        }
+        .profile-container {
+            width: 80%;
+            max-width: 1000px;
+            margin: 50px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+        .profile-container header {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .profile-container table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .profile-container table, .profile-container th, .profile-container td {
+            border: 1px solid #ddd;
+        }
+        .profile-container th, .profile-container td {
+            padding: 15px;
+            text-align: left;
+        }
+        .profile-container th {
+            background-color: #f4f4f4;
+            font-weight: 600;
+        }
+        .profile-container tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .profile-container tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <nav class="nav">
+            <div class="nav-logo">
+                <img src="{{ url_for('static', filename='bluecloudlogo.jpeg') }}" alt="Logo" />
+                <p>BLUE CLOUD</p>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="{{ url_for('index') }}" class="link">Home</a></li>
+                    <li><a href="{{ url_for('profile') }}" class="link active">Menu</a></li>
+                    <!-- <li><a href="{{ url_for('known_visitors') }}" class="link active">Known Visitors</a></li>
+                    <li><a href="{{ url_for('unknown_visitors') }}" class="link">Unknown Visitors</a></li> -->
+                </ul>
+            </div>
+            <div class="nav-button">
+                <button class="btn" onclick="location.href='{{ url_for('logout') }}'">Logout</button>
+            </div>
+            <div class="nav-menu-btn">
+                <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+            </div>
+        </nav>
+        <!----------------------------- Profile box ----------------------------------->
+        <div class="form-box">
+            <!------------------- profile information -------------------------->
+            <div class="profile-container" id="profile">
+                <header>Known Visitors in Secure Areas</header>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>First visited</th>
+                            <th>Last visited</th>
+                            <th>Total number of Visits</th>
+                            <th>Total duration of visit</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        function myMenuFunction() {
+            var i = document.getElementById("navMenu");
+            if (i.className === "nav-menu") {
+                i.className += " responsive";
+            } else {
+                i.className = "nav-menu";
+            }
+        }
+    </script>
+</body>
+</html>

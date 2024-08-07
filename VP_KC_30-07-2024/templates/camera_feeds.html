@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera Feeds</title>
+    <style>
+        .video-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .video-feed {
+            border: 1px solid black;
+            width: 45%;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <div>
+            <h2>Laptop Camera Feed</h2>
+            <img src="{{ url_for('video_feed_laptop') }}" class="video-feed">
+        </div>
+        <div>
+            <h2>Mobile Camera Feed</h2>
+            <img src="{{ url_for('video_feed_mobile') }}" class="video-feed">
+        </div>
+    </div>
+</body>
+</html>

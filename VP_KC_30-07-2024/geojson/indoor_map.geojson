@@ -1,0 +1,134 @@
+{
+    "type": "FeatureCollection",
+    "generator": "JOSM",
+    "bbox": [
+      81.32099930000,
+      21.16637880000,
+      81.32139090000,
+      21.16671900000
+    ],
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "highway": "residential"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [81.31964590000, 21.16660390000],
+            [81.32081360000, 21.16646610000],
+            [81.32131090000, 21.16641250000]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": null,
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [81.32128625974, 21.16670522029],
+            [81.32134392723, 21.16670146842],
+            [81.32129967079, 21.16642758123],
+            [81.32102072105, 21.16645884691],
+            [81.32103681430, 21.16650762137],
+            [81.32124736771, 21.16647885695],
+            [81.32128625974, 21.16670522029]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "highway": "residential"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [81.32109170000, 21.16493270000],
+            [81.32115230000, 21.16532700000],
+            [81.32131090000, 21.16641250000],
+            [81.32138360000, 21.16683290000],
+            [81.32145380000, 21.16728990000]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "building": "house",
+          "highway": "path",
+          "name": "Road"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [81.32108911738, 21.16654639080],
+            [81.32109850511, 21.16661142337],
+            [81.32112532720, 21.16661142337],
+            [81.32113069162, 21.16668395966],
+            [81.32125809655, 21.16666895216],
+            [81.32123663887, 21.16653388453],
+            [81.32108911738, 21.16654639080]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "indoor": "room",
+          "name": "Room A",
+          "level": 0
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [[[81.3211, 21.1665], [81.3212, 21.1665], [81.3212, 21.1666], [81.3211, 21.1666], [81.3211, 21.1665]]]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "indoor": "corridor",
+          "name": "Corridor",
+          "level": 0
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [[81.3211, 21.16655], [81.3213, 21.16655]]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "indoor": "door",
+          "name": "Door A",
+          "level": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [81.32115, 21.16655]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "indoor": "path",
+          "name": "Path from Room A to Road",
+          "level": 0
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [81.32115, 21.16655],  
+            [81.3212, 21.16655],   
+            [81.32125, 21.16655],  
+            [81.3213, 21.1665],    
+            [81.32135, 21.16645],  
+            [81.3214, 21.1664]     
+          ]
+        }
+      }
+    ]
+  }
+  

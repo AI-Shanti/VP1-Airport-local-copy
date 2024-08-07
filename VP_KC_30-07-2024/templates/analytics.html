@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics DashBoard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .header .logo {
+            width: 100px; /* Adjust as per your logo size */
+        }
+        .analytics-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background-color: #f9f9f9;
+        }
+        .analytics-container label {
+            font-weight: bold;
+        }
+        .analytics-container input[type="text"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        .analytics-container .btn-filter {
+            padding: 10px 20px;
+        }
+        .analytics-container #results {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .analytics-container .total-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <img class="logo" src="static/bluecloudlogo.jpeg" alt="Company Logo">
+            <span style="font-size: 24px; margin-left: 10px;">Analytics</span>
+        </div>
+        <button class="btn btn-secondary" onclick="closeAnalytics()">Close</button>
+    </div>
+
+    <div class="container analytics-container">
+        <div class="total-title">Total Visitors Count</div>
+        <form id="filter-form">
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="start_date">Select Start Date:</label>
+                    <div class="input-group">
+                        <input type="text" id="start_date" name="start_date" class="form-control flatpickr-input" placeholder="From Date">
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="start_time">Select Start Time:</label>
+                    <div class="input-group">
+                        <input type="text" id="start_time" name="start_time" class="form-control flatpickr-input" placeholder="Start Time">
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="end_date">Select End Date:</label>
+                    <div class="input-group">
+                        <input type="text" id="end_date" name="end_date" class="form-control flatpickr-input" placeholder="To Date">
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="end_time">Select End Time:</label>
+                    <div class="input-group">
+                        <input type="text" id="end_time" name="end_time" class="form-control flatpickr-input" placeholder="End Time">
+                    </div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>&nbsp;</label>
+                    <button type="submit" class="btn btn-primary btn-filter btn-block">Submit</button>
+                </div>
+            </div>
+        </form>
+        
+        <div id="results"></div>
+
+        <!-- Form for counting known and unknown persons -->
+        <div class="total-title mt-4">Count Known and Unknown Persons</div>
+        <form id="count-form">
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="count_start_date">Select Start Date:</label>
+                    <div class="input-group">
+                        <input type="text" id="count_start_date" name="count_start_date" class="form-control flatpickr-input" placeholder="From Date">
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="count_start_time">Select Start Time:</label>
+                    <div class="input-group">
+                        <input type="text" id="count_start_time" name="count_start_time" class="form-control flatpickr-input" placeholder="Start Time">
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="count_end_date">Select End Date:</label>
+                    <div class="input-group">
+                        <input type="text" id="count_end_date" name="count_end_date" class="form-control flatpickr-input" placeholder="To Date">
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="count_end_time">Select End Time:</label>
+                    <div class="input-group">
+                        <input type="text" id="count_end_time" name="count_end_time" class="form-control flatpickr-input" placeholder="End Time">
+                    </div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>&nbsp;</label>
+                    <button type="submit" class="btn btn-primary btn-filter btn-block">Submit</button>
+                </div>
+            </div>
+        </form>
+        
+        <div id="count-results"></div>
+    </div>
+
+    <!-- Modal for displaying detailed records -->
+    <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailsModalLabel">Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    <!-- Details will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS, jQuery, Popper.js, and Flatpickr JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        // Initialize Flatpickr on the input fields
+        document.addEventListener("DOMContentLoaded", function () {
+            flatpickr("#start_date, #end_date, #count_start_date, #count_end_date", {
+                enableTime: false,
+                dateFormat: "Y-m-d",
+                disableMobile: true // Disable mobile-friendly mode for better UI
+            });
+            flatpickr("#start_time, #end_time, #count_start_time, #count_end_time", {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i:S",
+                disableMobile: true // Disable mobile-friendly mode for better UI
+            });
+        });
+
+        async function closeAnalytics() {
+            // Add functionality if needed to close the analytics section
+        }
+
+        // Filter form submission
+        document.querySelector('#filter-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const start_date = document.querySelector('#start_date').value;
+            const start_time = document.querySelector('#start_time').value;
+            const end_date = document.querySelector('#end_date').value;
+            const end_time = document.querySelector('#end_time').value;
+
+            const response = await fetch(`/filter?start_date=${start_date}&start_time=${start_time}&end_date=${end_date}&end_time=${end_time}`);
+            const data = await response.text();
+
+            const resultsDiv = document.querySelector('#results');
+            resultsDiv.innerHTML = `<div class="alert alert-info" role="alert">${data}</div>`;
+        }
+
+        // Count form submission
+        document.querySelector('#count-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const start_date = document.querySelector('#count_start_date').value;
+            const start_time = document.querySelector('#count_start_time').value;
+            const end_date = document.querySelector('#count_end_date').value;
+            const end_time = document.querySelector('#count_end_time').value;
+
+            const response = await fetch(`/count_known_unknown?start_date=${start_date}&start_time=${start_time}&end_date=${end_date}&end_time=${end_time}`);
+            const data = await response.json();
+
+            const countResultsDiv = document.querySelector('#count-results');
+            countResultsDiv.innerHTML = `
+                <div class="mt-3">
+                    <strong>Known Persons Count:</strong> ${data.known_persons_count}
+                </div>
+                <div class="mt-3">
+                    <strong>Unknown Persons Count:</strong> ${data.unknown_persons_count}
+                </div>
+                <button class="btn btn-info mt-3" onclick="showDetails('known')">Show Known Persons Details</button>
+                <button class="btn btn-warning mt-3" onclick="showDetails('unknown')">Show Unknown Persons Details</button>`;
+        }
+
+        async function showDetails(type) {
+            const start_date = document.querySelector('#count_start_date').value;
+            const start_time = document.querySelector('#count_start_time').value;
+            const end_date = document.querySelector('#count_end_date').value;
+            const end_time = document.querySelector('#count_end_time').value;
+
+            const response = await fetch(`/details?start_date=${start_date}&start_time=${start_time}&end_date=${end_date}&end_time=${end_time}&type=${type}`);
+            const data = await response.json();
+
+            let detailsHtml = '<ul class="list-group">';
+            data.forEach(record => {
+                detailsHtml += `
+                    <li class="list-group-item">
+                        <strong>Name:</strong> ${record.name} <br>
+                        <strong>First Seen:</strong> ${record.first_seen} <br>
+                        <strong>Visit Count:</strong> ${record.visit_count || 0}
+                    </li>`;
+            });
+            detailsHtml += '</ul>';
+
+            document.querySelector('#modal-body').innerHTML = detailsHtml;
+            $('#detailsModal').modal('show');
+        }
+    </script>
+</body>
+</html>

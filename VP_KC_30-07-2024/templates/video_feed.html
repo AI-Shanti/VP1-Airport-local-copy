@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Feed</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styling.css') }}">
+    <style>
+        .live-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 60px); /* Adjust height considering the navbar height */
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .video-feed {
+            display: block;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            width: 640px; /* Three times the original width */
+            height: 480px; /* Three times the original height */
+        }
+    </style>
+</head>
+<body>
+ <div class="wrapper">
+    <nav class="nav">
+        <div class="nav-logo">
+            <img src="{{ url_for('static', filename='bluecloudlogo.jpeg') }}" alt="Logo" />
+            <p>BLUE CLOUD</p>
+        </div>
+        <div class="nav-menu" id="navMenu">
+            <ul>
+            </ul>
+        </div>
+        <div class="nav-button">
+        </div>
+        <div class="nav-menu-btn">
+            <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+        </div>
+    </nav>
+    <div class="live-container">
+        <img src="{{ url_for('video_feed', image_filename=image_filename) }}" class="video-feed">
+    </div>
+</div>
+<script>
+    function myMenuFunction() {
+        var i = document.getElementById("navMenu");
+        if(i.className === "nav-menu") {
+            i.className += " responsive";
+        } else {
+            i.className = "nav-menu";
+        }
+    }
+</script>
+</body>
+</html>
+

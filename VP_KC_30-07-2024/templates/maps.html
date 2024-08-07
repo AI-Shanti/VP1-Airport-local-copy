@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pannellum Image Viewer</title>
+    <style>
+        #panorama {
+            height: 600px;
+            width: 50%;
+        }
+        .controls {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .arrow-btn {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/pannellum/build/pannellum.css">
+</head>
+<body>
+    <div id="panorama"></div>
+    <div class="controls">
+        <button class="arrow-btn" onclick="move('left')">⬅️ Left</button>
+        <button class="arrow-btn" onclick="move('right')">➡️ Right</button>
+        <button class="arrow-btn" onclick="move('up')">⬆️ Up</button>
+        <button class="arrow-btn" onclick="move('down')">⬇️ Down</button>
+    </div>
+
+    <form action="{{ url_for('feeds') }}" method="get" style="text-align:center; margin-top: 20px;">
+        <button type="submit" class="arrow-btn">Go to Feeds</button>
+    </form>
+
+    <script src="https://unpkg.com/pannellum/build/pannellum.js"></script>
+    <script>
+        const imageMap = {
+            '1': {
+                'left': null,
+                'right': null,
+                'up': ['2', '3'],
+                'down': ['2', '1']
+            },
+            '2': {
+                'left': null,
+                'right': null,
+                'up': ['3', '4'],
+                'down': ['1']
+            },
+            '3': {
+                'left': null,
+                'right': null,
+                'up': ['4'],
+                'down': ['1']
+            },
+            '4': {
+                'left': null,
+                'right': null,
+                'up': ['1'],
+                'down': ['3']
+            }
+        };
+
+        let currentImage = '1'; // Initial current image
+        const viewer = pannellum.viewer('panorama', {
+            "default": {
+                "firstScene": currentImage,
+                "sceneFadeDuration": 1000
+            },
+            "scenes": {
+                '1': {
+                    "type": "equirectangular",
+                    "panorama": `/static/1.jpg`
+                },
+                '2': {
+                    "type": "equirectangular",
+                    "panorama": `/static/2.jpg`
+                },
+                '3': {
+                    "type": "equirectangular",
+                    "panorama": `/static/3.jpg`
+                },
+                '4': {
+                    "type": "equirectangular",
+                    "panorama": `/static/4.jpg`
+                }
+            }
+        });
+
+        function move(direction) {
+            const possibleImages = imageMap[currentImage][direction];
+            console.log(`Current Image: ${currentImage}`);
+            console.log(`Direction: ${direction}`);
+            console.log(`Possible Images: ${possibleImages}`);
+            
+            if (possibleImages && possibleImages.length > 0) {
+                const nextImage = possibleImages[Math.floor(Math.random() * possibleImages.length)];
+                console.log(`Moving ${direction} to: ${nextImage}`); // Debugging log
+                currentImage = nextImage; // Update currentImage with the new image
+                
+                // Load the new scene with the updated currentImage
+                viewer.loadScene(currentImage);
+                console.log(`Successfully loaded: ${currentImage}`);
+            } else {
+                console.log(`No images available for direction: ${direction}`);
+            }
+        }
+
+        // Initial load
+        window.onload = function() {
+            console.log(`Initial load of image: ${currentImage}`);
+            viewer.loadScene(currentImage);
+            console.log(`Successfully loaded: ${currentImage}`);
+        }
+    </script>
+</body>
+</html>

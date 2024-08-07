@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export Users</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Export Users</h1>
+        <form action="{{ url_for('perform_export') }}" method="post">
+            <button type="submit">Export Users to JSON</button>
+        </form>
+        <div id="export-result"></div>
+    </div>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            fetch('{{ url_for("perform_export") }}', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('export-result').textContent = data.message;
+                });
+        });
+    </script>
+</body>
+</html>

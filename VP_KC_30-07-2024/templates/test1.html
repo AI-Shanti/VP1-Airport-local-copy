@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Indoor Navigation</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+    <script>
+        // Initialize the map
+        var map = L.map('map', {
+            crs: L.CRS.Simple,
+            minZoom: -1
+        });
+
+        // Define the dimensions of the image
+        var bounds = [[0,0], [2000,1500]]; // Adjust the dimensions to your floor plan image size
+
+        // Add the floor plan image overlay
+        var image = L.imageOverlay("C:\\Users\\nayan\\Downloads\\sample\\1.png", bounds).addTo(map);
+
+        // Fit the map to the image bounds
+        map.fitBounds(bounds);
+
+        // Example waypoints for routing (these should be defined based on your floor plan)
+        var waypoints = [
+            L.latLng(100, 100), // Start point
+            L.latLng(1800, 1300)  // End point
+        ];
+
+        // Add routing control
+        L.Routing.control({
+            waypoints: waypoints,
+            createMarker: function(i, waypoint, n) {
+                // Custom marker style
+                return L.marker(waypoint.latLng, {
+                    draggable: true
+                });
+            },
+            routeWhileDragging: true
+        }).addTo(map);
+    </script>
+</body>
+</html>
